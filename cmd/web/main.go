@@ -12,5 +12,5 @@ func main() {
 
 	log.Println("starting web server on port", PORT)
 
-	_ = http.ListenAndServe(PORT, mux)
+	_ = http.ListenAndServe(PORT, mux) //run serve handling routes
 }
