@@ -121,9 +121,34 @@ rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCE
             }
             e.preventDefault();
             e.stopPropagation();
-            sendMessage();
+            if (checkFields()) sendMessage();
         }
     });
+
+    document.getElementById("sendBtn").addEventListener("click", function(e) {
+        if (checkFields()) {sendMessage();}
+    });
+
+    function checkFields() {
+        const checkIDs = ["username", "message"];
+        let checked = true;
+        checkIDs.forEach(function(id) {
+            if (!checkFieldIsNotEmbyByID(id)) {
+                checked = false;
+            }
+        });
+        return checked;
+    }
+
+    function checkFieldIsNotEmbyByID(id, className = "alert-warning") {
+        let field = document.getElementById(id);
+        field.classList.remove(className);
+        if (field.value === "") {
+            field.classList.add(className);
+            return false;
+        }
+        return true;
+    }
 
     function sendMessage() {
         let jsonData = {};
