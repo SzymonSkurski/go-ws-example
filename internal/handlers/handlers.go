@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"fmt"
+	"encoding/json"
 	"log"
 	"net/http"
 	"sort"
@@ -92,10 +93,18 @@ func ListenForWs(conn *WebSocketConnection) {
 // Home home page handler
 func Home(w http.ResponseWriter, r *http.Request) {
 	//here could pass data map instead of nil
-	err := renderPage(w, "home.jet", nil)
+	// err := renderPage(w, "home.jet", nil)
+	// if err != nil {
+	// 	log.Panicln(err)
+	// }
+	var response WsJsonResponse
+	response.Message = "hello"
+	jData, err := json.Marshal(response)
 	if err != nil {
-		log.Panicln(err)
+		log.Panicln(err) //handle error
 	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jData)
 }
 
 func ListenToWsChannel() {
@@ -150,6 +159,7 @@ func broadcastToAll(response WsJsonResponse) {
 
 // renderPage render page from jet template and write response
 func renderPage(w http.ResponseWriter, tmpl string, data jet.VarMap) error {
+	fmt.Println("Rendering: `" + tmpl + "`");
 	view, err := views.GetTemplate(tmpl) //read temple from html/<tmpl>.jet file
 	if err != nil {
 		log.Panicln(err)

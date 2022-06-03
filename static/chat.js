@@ -7,7 +7,7 @@
 
 
     document.addEventListener("DOMContentLoaded", function() {
-        socket = new ReconnectingWebSocket("ws://127.0.0.1:8080/ws", null, { debug: true, reconnectInterval: 3000 });
+        socket = new ReconnectingWebSocket("ws://127.0.0.1:8880/ws", null, { debug: true, reconnectInterval: 3000 });
         
         const OFFLINE = `<span class="badge bg-danger">not connected</span>`;
         const ONLINE = `<span class="badge bg-success">connected</span>`;

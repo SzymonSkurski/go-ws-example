@@ -7,7 +7,7 @@ import (
 	"github.com/SzymonSkursrki/go-ws-example/internal/handlers"
 )
 
-const PORT = ":8080"
+const PORT = ":8880"
 
 func main() {
 	mux := routes()
